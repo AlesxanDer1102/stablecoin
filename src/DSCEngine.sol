@@ -293,8 +293,7 @@ contract DSCEngine is ReentrancyGuard {
 
     function _healthFactor(address user) private view returns (uint256) {
         (uint256 totalDscMinted, uint256 collateralValueinUsd) = _getAccountInformation(user);
-        uint256 collateralAdjustedForThreshold = (collateralValueinUsd * LIQUIDATION_THRESHOLD) / LIQUIDATION_PRECISION;
-        return (collateralAdjustedForThreshold * PRECISION) / totalDscMinted;
+        return _calculateHealtFactor(totalDscMinted, collateralValueinUsd);
     }
 
     //1.- Check if factor(do they hace collateral?)
@@ -332,6 +331,16 @@ contract DSCEngine is ReentrancyGuard {
         // the returned  value from CL will be 1000 * 1e8
 
         return ((uint256(price) * ADDITIONAL_FEED_PRECISION) * amount) / PRECISION;
+    }
+
+    function _calculateHealtFactor(uint256 totalDscMinted, uint256 collateralValueInUsd)
+        internal
+        pure
+        returns (uint256)
+    {
+        if (totalDscMinted == 0) return type(uint256).max;
+        uint256 collateralAdjustedForThreshold = (collateralValueInUsd * LIQUIDATION_THRESHOLD) / LIQUIDATION_PRECISION;
+        return (collateralAdjustedForThreshold * 1e18) / totalDscMinted;
     }
 
     function getAccountInformation(address user)

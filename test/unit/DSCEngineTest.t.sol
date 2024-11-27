@@ -2,7 +2,7 @@
 pragma solidity ^0.8.19;
 
 import {Test} from "forge-std/Test.sol";
-import {DeployDSC} from "../../script/DeployDsc.s.sol";
+import {DeployDSC} from "../../script/DeployDSC.s.sol";
 import {DecentralizedStablecoin} from "../../src/DecentralizedStablecoin.sol";
 import {DSCEngine} from "../../src/DSCEngine.sol";
 import {HelperConfig} from "../../script/HelperConfig.s.sol";
