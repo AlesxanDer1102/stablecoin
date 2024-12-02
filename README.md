@@ -1,4 +1,4 @@
-# Decentralized Stablecoin System (DSC)
+# Decentralized Stablecoin (DSC)
 
 ## Overview
 
